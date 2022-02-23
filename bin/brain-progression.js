@@ -6,10 +6,14 @@ import getRandomNumnber from '../utils/getRandomNumnber.js';
 
 let counter = 0;
 
-function NOD(x, y) {
-  if (y > x) return NOD(y, x);
-  if (!y) return x;
-  return NOD(y, x % y);
+function getNumbers(arraySize) {
+  const firstNumber = getRandomNumnber();
+  const step = getRandomNumnber(1, 10);
+  const result = [firstNumber];
+  for (let i = 1; i < arraySize; i += 1) {
+    result.push(result[i - 1] + step);
+  }
+  return result;
 }
 
 function ask(userName) {
@@ -17,11 +21,18 @@ function ask(userName) {
     console.log(`Congratulations, ${userName}!`);
     return;
   }
-  const firstNumber = getRandomNumnber();
-  const secondNumber = getRandomNumnber();
-  console.log(`Question: ${firstNumber} ${secondNumber}`);
+  const arraySize = getRandomNumnber(5, 10);
+  const index = getRandomNumnber(0, arraySize - 1);
+  const numbers = getNumbers(arraySize);
+  const question = numbers.reduce((reducer, number, numberIndex) => {
+    if (index === numberIndex) {
+      return `${reducer} .. `;
+    }
+    return `${reducer} ${number} `;
+  }, '');
+  console.log(`Question: ${question}`);
   const answer = readlineSync.question('Your answer: ');
-  const rightAnswer = NOD(firstNumber, secondNumber);
+  const rightAnswer = numbers[index];
   if (Number(answer) === rightAnswer) {
     console.log('Correct!');
     counter += 1;
@@ -32,10 +43,10 @@ function ask(userName) {
   }
 }
 
-function brainGCD() {
+function brainProgression() {
   const userName = greetUser();
   console.log('Find the greatest common divisor of given numbers.');
   ask(userName);
 }
 
-brainGCD();
+brainProgression();

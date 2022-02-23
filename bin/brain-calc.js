@@ -30,10 +30,10 @@ function ask(userName) {
   }
 }
 
-function brainEven() {
+function brainCalc() {
   const userName = greetUser();
   console.log('What is the result of the expression?');
   ask(userName);
 }
 
-brainEven();
+brainCalc();
