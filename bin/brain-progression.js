@@ -45,7 +45,7 @@ function ask(userName) {
 
 function brainProgression() {
   const userName = greetUser();
-  console.log('Find the greatest common divisor of given numbers.');
+  console.log('What number is missing in the progression?');
   ask(userName);
 }
 
