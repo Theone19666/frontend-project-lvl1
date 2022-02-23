@@ -1,19 +1,13 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRandomNumnber from '../utils/getRandomNumnber';
 import { greetUser } from '../src/cli.js';
 
 const yesAnswer = 'yes';
 const noAnswer = 'no';
 
-function getRandomInteger() {
-  const min = 1;
-  const max = 100;
-  const rand = min - 0.5 + Math.random() * (max - min + 1);
-  return Math.round(rand);
-}
-
-const numbers = [getRandomInteger(), getRandomInteger(), getRandomInteger()];
+const numbers = [getRandomNumnber(), getRandomNumnber(), getRandomNumnber()];
 let index = 0;
 
 function ask(userName) {
