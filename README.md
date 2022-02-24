@@ -5,6 +5,7 @@
 
 ![push](https://github.com/Theone19666/frontend-project-lvl1/actions/workflows/lint.yml/badge.svg)
 
+[![asciicast](https://asciinema.org/a/3cKbsjJnf8kQ6hFY50eWxsuz3.svg)](https://asciinema.org/a/3cKbsjJnf8kQ6hFY50eWxsuz3)
 
 Описание проекта
 
