@@ -15,7 +15,7 @@ function getNumbers(arraySize) {
   return result;
 }
 
-function ask(userName) {
+function askQuestion(userName) {
   if (counter === 3) {
     console.log(`Congratulations, ${userName}!`);
     return;
@@ -35,7 +35,7 @@ function ask(userName) {
   if (Number(answer) === rightAnswer) {
     console.log('Correct!');
     counter += 1;
-    ask(userName);
+    askQuestion(userName);
   } else {
     console.log(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
     console.log(`Let's try again, ${userName}!`);
@@ -45,5 +45,5 @@ function ask(userName) {
 export default function brainProgression() {
   const userName = greetUser();
   console.log('What number is missing in the progression?');
-  ask(userName);
+  askQuestion(userName);
 }

@@ -15,7 +15,7 @@ function getIsPrime(number) {
   return true;
 }
 
-function ask(userName) {
+function askQuestion(userName) {
   if (counter === 3) {
     console.log(`Congratulations, ${userName}!`);
     return;
@@ -27,7 +27,7 @@ function ask(userName) {
   if ((answer === answers.yes && isNumberPrime) || (answer === answers.no && !isNumberPrime)) {
     console.log('Correct!');
     counter += 1;
-    ask(userName);
+    askQuestion(userName);
   } else {
     console.log(`'${answer}' is wrong answer ;(. Correct answer was '${answer === answers.yes ? answers.no : answers.yes}'.`);
     console.log(`Let's try again, ${userName}!`);
@@ -37,5 +37,5 @@ function ask(userName) {
 export default function brainPrime() {
   const userName = greetUser();
   console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
-  ask(userName);
+  askQuestion(userName);
 }

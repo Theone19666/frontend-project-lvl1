@@ -7,7 +7,7 @@ const operations = ['+', '-', '*'];
 
 let counter = 0;
 
-function ask(userName) {
+function askQuestion(userName) {
   if (counter === 3) {
     console.log(`Congratulations, ${userName}!`);
     return;
@@ -23,7 +23,7 @@ function ask(userName) {
   if (Number(rightAnswer) === Number(answer)) {
     console.log('Correct!');
     counter += 1;
-    ask(userName);
+    askQuestion(userName);
   } else {
     console.log(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
     console.log(`Let's try again, ${userName}!`);
@@ -33,5 +33,5 @@ function ask(userName) {
 export default function brainCalc() {
   const userName = greetUser();
   console.log('What is the result of the expression?');
-  ask(userName);
+  askQuestion(userName);
 }
