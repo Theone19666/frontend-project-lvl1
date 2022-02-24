@@ -1,10 +1,9 @@
 import readlineSync from 'readline-sync';
 
 import getRandomNumber from '../utils/getRandomNumber.js';
-import greetUser, { askQuestion } from '../cli.js';
+import greetUser from '../cli.js';
 import { answers } from '../constants.js';
 
-/*
 const numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
 let counter = 0;
 
@@ -26,30 +25,9 @@ function ask(userName) {
     console.log(`Let's try again, ${userName}!`);
   }
 }
+
 export default function brainEven() {
   const userName = greetUser();
   console.log(`Answer "${answers.yes}" if the number is even, otherwise answer "${answers.no}".`);
   ask(userName);
-}
-*/
-
-function getIsAnswerRight(answer, question) {
-  const isNumberEven = question % 2 === 0;
-  return (answer === answers.yes && isNumberEven) || (answer === answers.no && !isNumberEven);
-}
-
-export default function brainEven() {
-  const userName = greetUser();
-  const numbers = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
-  function getRightAnswer(answer) {
-    return answer === answers.yes ? answers.no : answers.yes;
-  }
-  function getQuestion(counter) {
-    return numbers[counter];
-  }
-  console.log(`Answer "${answers.yes}" if the number is even, otherwise answer "${answers.no}".`);
-  // ask(userName);
-  askQuestion({
-    userName, getIsAnswerRight, getRightAnswer, getQuestion,
-  });
 }

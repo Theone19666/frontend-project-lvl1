@@ -18,6 +18,7 @@ function ask(userName) {
   const question = `${firstNumber} ${operation} ${secondNumber}`;
   console.log(`Question: ${question}`);
   const answer = readlineSync.question('Your answer: ');
+  // eslint-disable-next-line no-eval
   const rightAnswer = eval(question);
   if (Number(rightAnswer) === Number(answer)) {
     console.log('Correct!');
