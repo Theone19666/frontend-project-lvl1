@@ -19,7 +19,8 @@ function getQuestion(numbers, index) {
     if (index === numberIndex) {
       return `${reducer} ..`;
     }
-    return `${reducer} ${number}`;
+    const stringDivider = numberIndex === 0 ? '' : ' ';
+    return `${reducer}${stringDivider}${number}`;
   }, '');
 }
 
