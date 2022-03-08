@@ -1,6 +1,6 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
 import getQuestionsList from '../utils/getQuestionsList.js';
-import { startGame } from '../engine.js';
+import startGame from '../engine.js';
 
 const operations = ['+', '-', '*'];
 

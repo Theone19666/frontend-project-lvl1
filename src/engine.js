@@ -1,7 +1,7 @@
 import readlineSync from 'readline-sync';
 
 import { greetUser, getUserName, showUserName } from './cli.js';
-import { attemptsCount } from './constants.js';
+import attemptsCount from './constants/attemptsCount.js';
 
 let counter = 0;
 
@@ -24,7 +24,7 @@ function playGame({ questionsWithAnswers, userName }) {
   }
 }
 
-export function startGame({ questionsWithAnswers, question }) {
+export default function startGame({ questionsWithAnswers, question }) {
   greetUser();
   const userName = getUserName();
   showUserName(userName);

@@ -1,4 +1,4 @@
-import { attemptsCount } from '../constants.js';
+import attemptsCount from '../constants/attemptsCount.js';
 
 export default function getQuestionsList(getQuestionWithAnswer) {
   const result = [];
