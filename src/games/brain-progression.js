@@ -16,11 +16,14 @@ function getNumbers(arraySize) {
 
 function getQuestion(numbers, index) {
   return numbers.reduce((reducer, number, numberIndex) => {
-    if (index === numberIndex) {
-      return `${reducer} ..`;
-    }
     const stringDivider = numberIndex === 0 ? '' : ' ';
-    return `${reducer}${stringDivider}${number}`;
+    let addedString = '';
+    if (index === numberIndex) {
+      addedString = '..';
+    } else {
+      addedString = number;
+    }
+    return `${reducer}${stringDivider}${addedString}`;
   }, '');
 }
 
