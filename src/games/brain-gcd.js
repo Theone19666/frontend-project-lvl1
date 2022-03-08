@@ -1,38 +1,32 @@
-import readlineSync from 'readline-sync';
-
-import greetUser from '../cli.js';
 import getRandomNumber from '../utils/getRandomNumber.js';
+import getQuestionsList from '../utils/getQuestionsList.js';
+import { startGame } from '../engine.js';
 
-let counter = 0;
+const gameQuestion = 'Find the greatest common divisor of given numbers.';
 
 function NOD(x, y) {
   if (y > x) return NOD(y, x);
   if (!y) return x;
   return NOD(y, x % y);
 }
+function getQuestion(firstNumber, secondNumber) {
+  return `${firstNumber} ${secondNumber}`;
+}
 
-function askQuestion(userName) {
-  if (counter === 3) {
-    console.log(`Congratulations, ${userName}!`);
-    return;
-  }
+function getRightAnswer(firstNumber, secondNumber) {
+  return `${NOD(firstNumber, secondNumber)}`;
+}
+
+function getQuestionWithAnswer() {
   const firstNumber = getRandomNumber();
   const secondNumber = getRandomNumber();
-  console.log(`Question: ${firstNumber} ${secondNumber}`);
-  const answer = readlineSync.question('Your answer: ');
-  const rightAnswer = NOD(firstNumber, secondNumber);
-  if (Number(answer) === rightAnswer) {
-    console.log('Correct!');
-    counter += 1;
-    askQuestion(userName);
-  } else {
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
-    console.log(`Let's try again, ${userName}!`);
-  }
+  const question = getQuestion(firstNumber, secondNumber);
+  const rightAnswer = getRightAnswer(firstNumber, secondNumber);
+
+  return { question, rightAnswer };
 }
 
 export default function brainGCD() {
-  const userName = greetUser();
-  console.log('Find the greatest common divisor of given numbers.');
-  askQuestion(userName);
+  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
+  startGame({ questionsWithAnswers, question: gameQuestion });
 }

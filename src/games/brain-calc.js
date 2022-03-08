@@ -1,37 +1,32 @@
-import readlineSync from 'readline-sync';
-
-import greetUser from '../cli.js';
 import getRandomNumber from '../utils/getRandomNumber.js';
+import getQuestionsList from '../utils/getQuestionsList.js';
+import { startGame } from '../engine.js';
 
 const operations = ['+', '-', '*'];
 
-let counter = 0;
+const gameQuestion = 'What is the result of the expression?';
 
-function askQuestion(userName) {
-  if (counter === 3) {
-    console.log(`Congratulations, ${userName}!`);
-    return;
-  }
+function getQuestion() {
   const operation = operations[getRandomNumber(0, 2)];
   const firstNumber = getRandomNumber();
   const secondNumber = getRandomNumber();
-  const question = `${firstNumber} ${operation} ${secondNumber}`;
-  console.log(`Question: ${question}`);
-  const answer = readlineSync.question('Your answer: ');
+
+  return `${firstNumber} ${operation} ${secondNumber}`;
+}
+
+function getRightAnswer(question) {
   // eslint-disable-next-line no-eval
-  const rightAnswer = eval(question);
-  if (Number(rightAnswer) === Number(answer)) {
-    console.log('Correct!');
-    counter += 1;
-    askQuestion(userName);
-  } else {
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
-    console.log(`Let's try again, ${userName}!`);
-  }
+  return String(eval(question));
+}
+
+function getQuestionWithAnswer() {
+  const question = getQuestion();
+  const rightAnswer = getRightAnswer(question);
+
+  return { question, rightAnswer };
 }
 
 export default function brainCalc() {
-  const userName = greetUser();
-  console.log('What is the result of the expression?');
-  askQuestion(userName);
+  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
+  startGame({ questionsWithAnswers, question: gameQuestion });
 }

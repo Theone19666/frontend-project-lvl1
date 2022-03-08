@@ -1,9 +1,8 @@
-import readlineSync from 'readline-sync';
-
-import greetUser from '../cli.js';
 import getRandomNumber from '../utils/getRandomNumber.js';
+import getQuestionsList from '../utils/getQuestionsList.js';
+import { startGame } from '../engine.js';
 
-let counter = 0;
+const gameQuestion = 'What number is missing in the progression?';
 
 function getNumbers(arraySize) {
   const firstNumber = getRandomNumber();
@@ -15,35 +14,30 @@ function getNumbers(arraySize) {
   return result;
 }
 
-function askQuestion(userName) {
-  if (counter === 3) {
-    console.log(`Congratulations, ${userName}!`);
-    return;
-  }
+function getQuestion(numbers, index) {
+  return numbers.reduce((reducer, number, numberIndex) => {
+    if (index === numberIndex) {
+      return `${reducer} ..`;
+    }
+    return `${reducer} ${number}`;
+  }, '');
+}
+
+function getRightAnswer(numbers, index) {
+  return `${numbers[index]}`;
+}
+
+function getQuestionWithAnswer() {
   const arraySize = getRandomNumber(5, 10);
   const index = getRandomNumber(0, arraySize - 1);
   const numbers = getNumbers(arraySize);
-  const question = numbers.reduce((reducer, number, numberIndex) => {
-    if (index === numberIndex) {
-      return `${reducer} .. `;
-    }
-    return `${reducer} ${number} `;
-  }, '');
-  console.log(`Question: ${question}`);
-  const answer = readlineSync.question('Your answer: ');
-  const rightAnswer = numbers[index];
-  if (Number(answer) === rightAnswer) {
-    console.log('Correct!');
-    counter += 1;
-    askQuestion(userName);
-  } else {
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
-    console.log(`Let's try again, ${userName}!`);
-  }
+  const question = getQuestion(numbers, index);
+  const rightAnswer = getRightAnswer(numbers, index);
+
+  return { question, rightAnswer };
 }
 
 export default function brainProgression() {
-  const userName = greetUser();
-  console.log('What number is missing in the progression?');
-  askQuestion(userName);
+  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
+  startGame({ questionsWithAnswers, question: gameQuestion });
 }

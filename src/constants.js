@@ -1,4 +1,1 @@
-export const answers = {
-  yes: 'yes',
-  no: 'no',
-};
+export const attemptsCount = 3;
