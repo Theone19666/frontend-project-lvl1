@@ -1,18 +1,4 @@
-import readlineSync from 'readline-sync';
-
-export function greetUser() {
-  console.log('Welcome to the Brain Games!');
-}
-
-export function getUserName() {
-  const userName = readlineSync.question('May I have your name? ');
-
-  return userName;
-}
-
-export function showUserName(userName) {
-  console.log(`Hello, ${userName}!`);
-}
+import { greetUser, getUserName, showUserName } from './engine.js';
 
 export default function start() {
   greetUser();

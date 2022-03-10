@@ -1,8 +1,8 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import getQuestionsList from '../utils/getQuestionsList.js';
-import startGame from '../engine.js';
+import attemptsCount from '../attemptsCount.js';
+import playGame from '../engine.js';
 
-const gameQuestion = 'Find the greatest common divisor of given numbers.';
+const rules = 'Find the greatest common divisor of given numbers.';
 
 function NOD(x, y) {
   if (y > x) return NOD(y, x);
@@ -14,7 +14,7 @@ function getQuestion(firstNumber, secondNumber) {
 }
 
 function getRightAnswer(firstNumber, secondNumber) {
-  return `${NOD(firstNumber, secondNumber)}`;
+  return NOD(firstNumber, secondNumber).toString();
 }
 
 function getQuestionWithAnswer() {
@@ -26,7 +26,16 @@ function getQuestionWithAnswer() {
   return { question, rightAnswer };
 }
 
+function getQuestionsList() {
+  const result = [];
+  for (let i = 0; i < attemptsCount; i += 1) {
+    result.push(getQuestionWithAnswer());
+  }
+
+  return result;
+}
+
 export default function brainGCD() {
-  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
-  startGame({ questionsWithAnswers, question: gameQuestion });
+  const questionsWithAnswers = getQuestionsList();
+  playGame({ questionsWithAnswers, rules });
 }

@@ -1,25 +1,30 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import getQuestionsList from '../utils/getQuestionsList.js';
-import startGame from '../engine.js';
+import playGame from '../engine.js';
+import attemptsCount from '../attemptsCount.js';
 
-const gameQuestion = 'Answer "yes" if the number is even, otherwise answer "no".';
+const rules = 'Answer "yes" if the number is even, otherwise answer "no".';
 
-function getQuestion() {
-  return `${getRandomNumber()}`;
-}
-
-function getRightAnswer(question) {
-  return question % 2 === 0 ? 'yes' : 'no';
+function getIsNumberEven(number) {
+  return number % 2 === 0;
 }
 
 function getQuestionWithAnswer() {
-  const question = getQuestion();
-  const rightAnswer = getRightAnswer(question);
+  const question = getRandomNumber().toString();
+  const rightAnswer = getIsNumberEven(question) ? 'yes' : 'no';
 
   return { question, rightAnswer };
 }
 
+function getQuestionsList() {
+  const result = [];
+  for (let i = 0; i < attemptsCount; i += 1) {
+    result.push(getQuestionWithAnswer());
+  }
+
+  return result;
+}
+
 export default function brainEven() {
-  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
-  startGame({ questionsWithAnswers, question: gameQuestion });
+  const questionsWithAnswers = getQuestionsList();
+  playGame({ questionsWithAnswers, rules });
 }

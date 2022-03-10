@@ -1,16 +1,15 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import getQuestionsList from '../utils/getQuestionsList.js';
-import startGame from '../engine.js';
+import attemptsCount from '../attemptsCount.js';
+import playGame from '../engine.js';
 
-const gameQuestion = 'What number is missing in the progression?';
+const rules = 'What number is missing in the progression?';
 
-function getNumbers(arraySize) {
-  const firstNumber = getRandomNumber();
-  const step = getRandomNumber(1, 10);
+function getProgression({ firstNumber, step, arraySize }) {
   const result = [firstNumber];
   for (let i = 1; i < arraySize; i += 1) {
     result.push(result[i - 1] + step);
   }
+
   return result;
 }
 
@@ -28,20 +27,31 @@ function getQuestion(numbers, index) {
 }
 
 function getRightAnswer(numbers, index) {
-  return `${numbers[index]}`;
+  return numbers[index].toString();
 }
 
 function getQuestionWithAnswer() {
   const arraySize = getRandomNumber(5, 10);
   const index = getRandomNumber(0, arraySize - 1);
-  const numbers = getNumbers(arraySize);
+  const firstNumber = getRandomNumber();
+  const step = getRandomNumber(1, 10);
+  const numbers = getProgression({ arraySize, firstNumber, step });
   const question = getQuestion(numbers, index);
   const rightAnswer = getRightAnswer(numbers, index);
 
   return { question, rightAnswer };
 }
 
+function getQuestionsList() {
+  const result = [];
+  for (let i = 0; i < attemptsCount; i += 1) {
+    result.push(getQuestionWithAnswer());
+  }
+
+  return result;
+}
+
 export default function brainProgression() {
-  const questionsWithAnswers = getQuestionsList(getQuestionWithAnswer);
-  startGame({ questionsWithAnswers, question: gameQuestion });
+  const questionsWithAnswers = getQuestionsList();
+  playGame({ questionsWithAnswers, rules });
 }
