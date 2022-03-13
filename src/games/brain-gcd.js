@@ -1,20 +1,19 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import attemptsCount from '../attemptsCount.js';
-import playGame from '../engine.js';
+import playGame, { attemptsCount } from '../engine.js';
 
 const rules = 'Find the greatest common divisor of given numbers.';
 
-function NOD(x, y) {
-  if (y > x) return NOD(y, x);
+function getNOD(x, y) {
+  if (y > x) return getNOD(y, x);
   if (!y) return x;
-  return NOD(y, x % y);
+  return getNOD(y, x % y);
 }
 function getQuestion(firstNumber, secondNumber) {
   return `${firstNumber} ${secondNumber}`;
 }
 
 function getRightAnswer(firstNumber, secondNumber) {
-  return NOD(firstNumber, secondNumber).toString();
+  return getNOD(firstNumber, secondNumber).toString();
 }
 
 function getQuestionWithAnswer() {

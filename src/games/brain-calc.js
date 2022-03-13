@@ -1,6 +1,5 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import playGame from '../engine.js';
-import attemptsCount from '../attemptsCount.js';
+import playGame, { attemptsCount } from '../engine.js';
 
 const plusOperation = '+';
 const minusOperation = '-';
@@ -10,16 +9,17 @@ const operations = [plusOperation, minusOperation, multiplicationOperation];
 
 const rules = 'What is the result of the expression?';
 
-function getRightAnswer({ firstNumber, secondNumber, operation }) {
-  if (operation === plusOperation) {
-    return (firstNumber + secondNumber).toString();
+function getRightAnswer(firstNumber, secondNumber, operation) {
+  switch (operation) {
+    case plusOperation:
+      return (firstNumber + secondNumber).toString();
+    case minusOperation:
+      return (firstNumber - secondNumber).toString();
+    case multiplicationOperation:
+      return (firstNumber * secondNumber).toString();
+    default:
+      throw new Error('Такого оператора не существует');
   }
-
-  if (operation === minusOperation) {
-    return (firstNumber - secondNumber).toString();
-  }
-
-  return (firstNumber * secondNumber).toString();
 }
 
 function getQuestionWithAnswer() {
@@ -27,7 +27,7 @@ function getQuestionWithAnswer() {
   const firstNumber = getRandomNumber();
   const secondNumber = getRandomNumber();
   const question = `${firstNumber} ${operation} ${secondNumber}`;
-  const rightAnswer = getRightAnswer({ firstNumber, secondNumber, operation });
+  const rightAnswer = getRightAnswer(firstNumber, secondNumber, operation);
 
   return { question, rightAnswer };
 }

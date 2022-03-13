@@ -1,6 +1,5 @@
 import getRandomNumber from '../utils/getRandomNumber.js';
-import playGame from '../engine.js';
-import attemptsCount from '../attemptsCount.js';
+import playGame, { attemptsCount } from '../engine.js';
 
 const rules = 'Answer "yes" if the number is even, otherwise answer "no".';
 
